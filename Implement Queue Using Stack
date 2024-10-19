@@ -1,0 +1,22 @@
+class MyQueue:
+
+    def __init__(self):
+        self.In1=[]
+        self.Out1=[]
+        
+    def push(self, x: int) -> None:
+        self.In1.append(x)
+
+    def pop(self) -> int:
+        self.peek()
+        return self.Out1.pop()
+        
+    def peek(self) -> int:
+        if len(self.Out1) == 0:
+            while len(self.In1) > 0:
+                self.Out1.append(self.In1.pop())
+        return self.Out1[-1]
+        
+    def empty(self) -> bool:
+        return not self.In1 and not self.Out1
+        
