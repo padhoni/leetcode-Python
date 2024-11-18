@@ -1,0 +1,15 @@
+#Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        hashMap1 = {}
+    # Example: nums = [2,7,11,15], target = 9
+        i=0
+        for c in nums:
+            diff = target - c
+            if diff in hashMap1:
+                return hashMap1[diff], i
+            else:
+                hashMap1[c] = i
+            i=i+1
+        return
