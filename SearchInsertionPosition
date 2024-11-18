@@ -1,0 +1,28 @@
+Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+
+        l=len(nums)
+        lp=0
+        rp=l-1
+
+        if(target< nums[0]):
+            return 0
+        if (target > nums[l-1]):
+            return l
+
+        while lp<=rp:
+            mid=(lp+rp)//2
+
+            if(target==nums[mid]):
+                return mid
+            if (target > nums[mid] and target < nums[mid+1] and mid!=l-1):
+                return (mid + 1)
+            elif (target > nums[mid]):
+                lp=mid + 1
+            elif (target < nums[mid] and target > nums[mid-1] and mid!=0):
+                return mid
+            elif (target < nums[mid]):
+                rp=mid-1
+
+        
