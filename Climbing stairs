@@ -1,0 +1,21 @@
+70. Climbing Stairs
+
+class Solution:
+    def climbStairs(self, n: int) -> int:
+
+        if (n==1):
+            return n
+        if (n==2):
+            return n
+        initialStep =1
+        nextStep=2
+        logicStep=3
+        TotalStep=0
+        while (logicStep<=n):
+            TotalStep=initialStep + nextStep
+            initialStep=nextStep
+            nextStep=TotalStep
+            logicStep=logicStep+1
+        return TotalStep
+
+        
