@@ -1,0 +1,35 @@
+class MyHashSet:
+
+    def __init__(self):
+        self.hash1=1000
+        self.hash2=1000
+        self.refArr=[None]*self.hash1
+
+    def add(self, key: int) -> None:
+        mod1=key%self.hash1
+        div=key//self.hash2
+        if self.refArr[mod1] is None:
+            if mod1 == 0:
+                self.refArr[mod1] = [False] * (self.hash2 + 1)
+            else:
+                self.refArr[mod1] = [False]*self.hash2
+        self.refArr[mod1][div] = True
+        
+    def remove(self, key: int) -> None:
+        mod1=key%self.hash1
+        div=key//self.hash2
+        if self.refArr[mod1] is not None:
+            self.refArr[mod1][div] = False
+
+    def contains(self, key: int) -> bool:
+        mod1=key%self.hash1
+        div=key//self.hash2
+        return self.refArr[mod1] is not None and self.refArr[mod1][div]
+        
+
+
+# Your MyHashSet object will be instantiated and called as such:
+# obj = MyHashSet()
+# obj.add(key)
+# obj.remove(key)
+# param_3 = obj.contains(key)
