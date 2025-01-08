@@ -1,0 +1,14 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> int:
+
+        set1=set()
+        count=0
+        for i in s:
+            if i not in set1:
+                set1.add(i)
+            else:
+                count=count+2
+                set1.remove(i)
+        if len(set1)!=0:
+            count=count + 1
+        return count
