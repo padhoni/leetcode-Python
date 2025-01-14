@@ -1,0 +1,23 @@
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+
+        lmul=1
+        rmul=1
+        lArray=[1]*len(nums)
+        #ra=[1]*len(nums)
+        for i in range(len(nums)):
+            if i==0:
+                lArray[i]=lmul
+            else:
+                lmul=lmul*nums[i-1]
+                lArray[i]=lmul
+        for j in range(len(nums)-1, -1, -1):
+            if j==len(nums)-1:
+                #ra[j]=rmul
+                lArray[j]=lArray[j]*rmul
+            else:
+                rmul=rmul*nums[j+1]
+                #ra[j]=rmul
+                lArray[j]=lArray[j]*rmul
+
+        return lArray
