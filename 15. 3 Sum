@@ -1,0 +1,68 @@
+
+from typing import List
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()  # Sort the array
+        result = []
+
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue  # Skip duplicates for the first number
+            
+            left, right = i + 1, len(nums) - 1
+            while left < right:
+                current_sum = nums[i] + nums[left] + nums[right]
+                
+                if current_sum == 0:
+                    result.append([nums[i], nums[left], nums[right]])
+                    left += 1
+                    right -= 1
+                    
+                    # Skip duplicates for the second and third numbers
+                    while left < right and nums[left] == nums[left - 1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right + 1]:
+                        right -= 1
+                
+                elif current_sum < 0:
+                    left += 1  # Move left pointer to increase the sum
+                else:
+                    right -= 1  # Move right pointer to decrease the sum
+        
+        return result
+
+
+#binary search is working for small data set, while Time limit exceed issue is coming for large data set
+"""
+from typing import List
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        result = []
+        
+        for i in range(len(nums) - 2):
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue  # Skip duplicate elements for the first number
+            
+            for j in range(i + 1, len(nums) - 1):
+                if j > i + 1 and nums[j] == nums[j - 1]:
+                    continue  # Skip duplicate elements for the second number
+                
+                target = -(nums[i] + nums[j])
+                # Perform binary search for the third number
+                low, high = j + 1, len(nums) - 1
+                while low <= high:
+                    mid = (low + high) // 2
+                    if nums[mid] == target:
+                        result.append([nums[i], nums[j], nums[mid]])
+                        break
+                    elif nums[mid] < target:
+                        low = mid + 1
+                    else:
+                        high = mid - 1
+        
+        # Deduplicate the results (optional but ensures clean output)
+        return list(map(list, set(map(tuple, result))))
+"""
