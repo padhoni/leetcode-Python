@@ -1,0 +1,36 @@
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+
+        currList=[]
+        prevList=[]
+        cntr=1
+        lCtr=1
+        rCtr=1
+        tmp=[]
+        while cntr<=numRows:
+            if cntr==1:
+                val=[lCtr]
+                currList.append(val)
+            if cntr==2:
+                val=[lCtr,rCtr]
+                currList.append(val)
+                prevList=[1,1]
+                #print(currList)
+                print("what is previous value",len(prevList))
+                print("it shoul be 2==>", prevList.count(1))
+            if cntr>2:
+                tmp=[lCtr]
+                print("current list", currList)
+                for i in range(0,len(prevList)-1):
+                    sum=prevList[i] + prevList[i+1]
+                    print("It shoul be 2 ",sum)
+                    tmp.append(sum)
+                tmp.append(rCtr)
+                currList.append(tmp)
+                prevList=tmp
+            cntr=cntr+1
+        return currList
+
+
+
+        
