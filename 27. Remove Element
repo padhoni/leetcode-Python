@@ -1,0 +1,22 @@
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        left=0
+        right=len(nums)-1
+        while (left<=right):
+            while (right >= 0 and nums[right]==val):
+                nums[right]=None
+                right=right-1
+            while (left<=right and nums[left]!=val):
+                left=left+1
+            if (left<=right and nums[left]==val):
+                nums[left]=nums[right]
+                nums[right]=None
+                left =left+1
+                right=right-1
+        nums= [x for x in nums if x is not None]
+        len1=len(nums)
+        return len1
+
+
+
+        
