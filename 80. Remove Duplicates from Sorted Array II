@@ -1,0 +1,13 @@
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        slowPointer=1
+        ctr=1
+        for fastPointer in range(1, len(nums)):
+            if(nums[fastPointer]==nums[fastPointer-1]):
+                ctr=ctr+1
+            else:
+                ctr=1
+            if ctr<=2:
+                nums[slowPointer]=nums[fastPointer]
+                slowPointer=slowPointer+1
+        return slowPointer
