@@ -1,0 +1,31 @@
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        if head == None:
+            return None
+        dummy = ListNode(-1)
+        dummy.next = head
+        dummy1 = dummy
+        length = 0
+
+        # First loop: Calculate the length of the linked list
+        current = dummy.next  # Start from the actual head of the list
+        while current is not None:
+            current = current.next
+            length += 1
+        print(length)
+
+        # Calculate the position to remove (1-based index)
+        remove = length - n
+
+        # Second loop: Traverse to the node just before the one to be removed
+        while remove > 0:
+            dummy1 = dummy1.next
+            print(dummy1.val)  # Debugging output
+            remove -= 1
+
+        # Remove the nth node from the end
+        if dummy1.next is not None:
+            dummy1.next = dummy1.next.next
+
+        # Return the updated head
+        return dummy.next
