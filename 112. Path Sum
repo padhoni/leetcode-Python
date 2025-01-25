@@ -1,0 +1,21 @@
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        if root is None:
+            return False
+        
+        self.flag = False
+        self.pathSum(root, targetSum, 0)
+        return self.flag
+
+    def pathSum(self, root: Optional[TreeNode], targetSum: int, sum1: int) -> None:
+        if root is None:
+            return
+        
+        sum1 =sum1 + root.val
+
+        if root.left is None and root.right is None and sum1 == targetSum:
+            self.flag = True
+            return
+
+        self.pathSum(root.left, targetSum, sum1)
+        self.pathSum(root.right, targetSum, sum1)
