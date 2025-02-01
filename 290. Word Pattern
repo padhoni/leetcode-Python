@@ -1,0 +1,19 @@
+class Solution:
+    def wordPattern(self, pattern: str, s: str) -> bool:
+        len1 = len(pattern)
+        s1 = s.split()
+        len2 = len(s1)
+        map1 = {}
+        if len1 != len2:
+            return False
+        for i in range(len1):
+            val1 = pattern[i]
+            val2 = s1[i]
+
+            if val1 in map1 and map1[val1] != val2:
+                return False
+            elif val2 in map1.values() and val1 not in map1:
+                return False
+            else:
+                map1[val1] = val2
+        return True
