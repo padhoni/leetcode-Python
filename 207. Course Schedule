@@ -1,0 +1,42 @@
+from queue import Queue
+from typing import List
+
+class Solution:
+    def canFinish(self, numCourses: int, prerequisites: List[List[int]]) -> bool:
+        if numCourses == 0:
+            return True
+
+        q = Queue()
+        indegree = [0 for _ in range(numCourses)]
+        graph = dict()
+        count = 0
+
+        # Build the graph and calculate indegrees
+        for prerequisite in prerequisites:
+            From, To = prerequisite[1], prerequisite[0]
+            indegree[To] += 1
+            if From not in graph:
+                graph[From] = []
+            graph[From].append(To)
+        
+        # Add courses with zero indegree to the queue
+        for i in range(numCourses):
+            if indegree[i] == 0:
+                q.put(i)
+                count += 1
+
+        if count == 0:
+            return False
+
+        # Process courses in topological order
+        while not q.empty():
+            curr = q.get()
+            if curr in graph:
+                for neighbor in graph[curr]:
+                    indegree[neighbor] -= 1
+                    if indegree[neighbor] == 0:
+                        q.put(neighbor)
+                        count += 1
+
+        # Check if all courses have been processed
+        return count == numCourses
