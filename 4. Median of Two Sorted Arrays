@@ -25,3 +25,38 @@ class Solution:
                 right = i - 1
             else:
                 left = i + 1
+
+==================================================
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        len1 = len(nums1)
+        len2 = len(nums2)
+        
+        if len1 > len2:
+            nums1, nums2 = nums2, nums1
+            len1, len2 = len2, len1
+        
+        totalLen = len1 + len2
+        halfLen = (totalLen + 1) // 
+        
+        l1, r1 = 0, len1
+        while l1 <= r1:
+            mid1 = (l1 + r1) // 2
+            mid2 = halfLen - mid1
+            
+            # Check if mid1 is out of bounds
+            nums1Left = nums1[mid1 - 1] if mid1 > 0 else float('-inf')
+            nums1Right = nums1[mid1] if mid1 < len1 else float('inf')
+            nums2Left = nums2[mid2 - 1] if mid2 > 0 else float('-inf')
+            nums2Right = nums2[mid2] if mid2 < len2 else float('inf')
+            
+            if nums1Left <= nums2Right and nums2Left <= nums1Right:
+                if totalLen % 2 == 0:
+                    return (max(nums1Left, nums2Left) + min(nums1Right, nums2Right)) / 2
+                else:
+                    return max(nums1Left, nums2Left)
+            elif nums1Left > nums2Right:
+                r1 = mid1 - 1
+            else:
+                l1 = mid1 + 1
+        return 0.0
