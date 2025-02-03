@@ -1,0 +1,25 @@
+from queue import Queue
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        if grid==None or len(grid)==0:
+            return 0
+        row=len(grid)
+        col=len(grid[0])
+        q=Queue()
+        cnt=0
+        dirs=[[-1,0],[1,0],[0,-1],[0,1]]
+        for i in range(row):
+            for j in range(col):
+                if grid[i][j]=='1':
+                    q.put([i,j])
+                    cnt=cnt+1
+                    grid[i][j]='2'
+                    while not q.empty():
+                        curr=q.get()
+                        for dir1 in dirs:
+                            nr=curr[0]+dir1[0]
+                            nc=curr[1]+dir1[1]
+                            if nr>=0 and nc>=0 and nr<row and nc<col and grid[nr][nc]=='1':
+                                q.put([nr,nc])
+                                grid[nr][nc]='2'
+        return cnt
