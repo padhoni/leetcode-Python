@@ -1,0 +1,19 @@
+
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        if image==None or len(image)==0 or image[sr][sc]==color:
+            return image
+        self.row=len(image)
+        self.col=len(image[0])
+        self.orgVal=image[sr][sc]
+        self.dirs=([-1,0],[1,0],[0,-1], [0,1])
+        self.dfs(image, sr, sc, color)
+        return image
+    def dfs(self, image: List[List[int]], sr: int, sc: int, color: int) -> None:
+        if sr<0 or sc<0 or sr==self.row or sc==self.col or image[sr][sc]!=self.orgVal:
+            return
+        image[sr][sc]=color
+        for Dir in self.dirs:
+            nr=sr+Dir[0]
+            nc=sc+Dir[1]
+            self.dfs(image, nr, nc, color)
