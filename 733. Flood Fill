@@ -1,0 +1,25 @@
+from queue import Queue
+class Solution:
+    def floodFill(self, image: List[List[int]], sr: int, sc: int, color: int) -> List[List[int]]:
+        if image==None or len(image)==0 or image[sr][sc]==color:
+            return image
+        m=len(image)
+        n=len(image[0])
+        oldColor=image[sr][sc]
+        rq=Queue()
+        cq=Queue()
+        rq.put(sr)
+        cq.put(sc)
+        dir=[[-1,0], [1,0],[0,-1],[0,1]]
+        image[sr][sc]=color
+        while not rq.empty():
+            cr=rq.get()
+            cc=cq.get()
+            for Dir in dir:
+                nr=cr+Dir[0]
+                nc=cc+Dir[1]
+                if nr>=0 and nc>=0 and nr<m and nc<n and image[nr][nc]==oldColor:
+                    rq.put(nr)
+                    cq.put(nc)
+                    image[nr][nc]=color
+        return image
