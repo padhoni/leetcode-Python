@@ -6,6 +6,17 @@ class Solution:
         self.combinationSumFun(candidates, target,0,[])
         return self.result
     def combinationSumFun(self, candidates: List[int], target: int, pivot:int, path:List[int]) -> None:
+        
+        if target==0:
+            self.result.append(path.copy())
+            return
+        if target< 0 or len(candidates)==pivot:
+            return
+        self.combinationSumFun(candidates, target, pivot+1, path)
+        path.append(candidates[pivot])
+        self.combinationSumFun(candidates, target-candidates[pivot], pivot, path)
+        path.pop()
+        """
         #base condition
         if target==0:
             self.result.append(path.copy())
@@ -16,3 +27,4 @@ class Solution:
             path.append(candidates[i])
             self.combinationSumFun(candidates, target-candidates[i], i, path)
             path.pop()
+        """
