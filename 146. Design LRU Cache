@@ -1,0 +1,57 @@
+class LRUCache:
+    class Node:
+        def __init__(self, key: int, value: int):
+            self.key = key
+            self.value = value
+            self.prev = None
+            self.next = None
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.head = self.Node(-1, -1)
+        self.tail = self.Node(-1, -1)
+        self.head.next = self.tail
+        self.tail.prev = self.head
+        self.hashMap = dict()
+
+    def removeNode(self, node: Node) -> None:
+        if node and node.prev and node.next:  # Ensure node is not head or tail
+            node.prev.next = node.next
+            node.next.prev = node.prev
+
+    def addNodeAtHead(self, node: Node) -> None:
+        node.prev = self.head
+        node.next = self.head.next
+        self.head.next.prev = node
+        self.head.next = node
+
+    def get(self, key: int) -> int:
+        if key not in self.hashMap:
+            return -1
+        node = self.hashMap[key]
+        self.removeNode(node)
+        self.addNodeAtHead(node)
+        return node.value
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.hashMap:
+            node = self.hashMap[key]
+            node.value = value
+            self.removeNode(node)
+            self.addNodeAtHead(node)
+            return
+
+        if self.capacity == len(self.hashMap):
+            tailPrev = self.tail.prev
+            self.removeNode(tailPrev)
+            del self.hashMap[tailPrev.key]
+
+        node = self.Node(key, value)
+        self.addNodeAtHead(node)
+        self.hashMap[key] = node
+
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key, value)
