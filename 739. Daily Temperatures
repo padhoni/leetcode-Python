@@ -1,0 +1,16 @@
+from typing import List
+
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        stack1 = []
+        new1 = [0] * len(temperatures)
+        if len(temperatures) == 0:
+            return new1
+        
+        for i in range(len(temperatures)):
+            while stack1 and temperatures[stack1[-1]] < temperatures[i]:
+                j = stack1.pop()
+                new1[j] = i - j
+            stack1.append(i)
+        
+        return new1
