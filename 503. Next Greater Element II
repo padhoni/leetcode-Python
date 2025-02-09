@@ -1,0 +1,15 @@
+class Solution:
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+        stack=[]
+        new=[-1]*len(nums)
+        print(new)
+        length=len(nums)
+        if length==0:
+            return []
+        for i in range(2*length):
+            while stack and nums[stack[-1]]<nums[i%length]:
+                pop=stack.pop()
+                new[pop]=nums[i%length]
+            if i<length:
+                stack.append(i)
+        return new
