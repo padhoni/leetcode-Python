@@ -1,0 +1,23 @@
+class Solution:
+    def customSortString(self, order: str, s: str) -> str:
+
+        hashMap = dict()
+        s2 = ""
+        for i in range(len(s)):
+            c = s[i]
+            if c not in hashMap:
+                hashMap[c] = 1  # a:1
+            else:
+                hashMap[c] =hashMap[c] + 1
+
+        for j in range(len(order)):
+            c1 = order[j]
+            if c1 in hashMap:
+                val = hashMap[c1]
+                for k in range(val):
+                    s2 = s2 + c1
+                del hashMap[c1]
+
+        for key, value in hashMap.items():
+            s2 =s2 + key * value
+        return s2
