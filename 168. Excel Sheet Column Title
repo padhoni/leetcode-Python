@@ -1,0 +1,15 @@
+class Solution:
+    def convertToTitle(self, columnNumber: int) -> str:
+        if columnNumber == 0:
+            return ""
+        
+        #letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        
+        letters = [chr(i) for i in range(ord('A'), ord('Z') + 1)]
+        result = ""
+        while columnNumber > 0:
+            columnNumber -= 1
+            result = letters[columnNumber % 26] + result
+            columnNumber //= 26
+        
+        return result
