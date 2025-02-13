@@ -1,0 +1,31 @@
+class Solution:
+    def __init__(self):
+        self.under20 = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten",
+                        "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"]
+        self.under100 = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"]
+        self.beyond1000 = ["", "Thousand", "Million", "Billion"]
+
+    def numberToWords(self, num: int) -> str:
+        if num == 0:
+            return "Zero"
+
+        res = ""
+        i = 0
+
+        while num > 0:
+            if num % 1000 != 0:
+                res = self.fun1(num % 1000) + self.beyond1000[i] + " " + res
+            num //= 1000
+            i += 1
+        
+        return res.strip()
+
+    def fun1(self, num: int) -> str:
+        if num == 0:
+            return ""
+        elif num < 20:
+            return self.under20[num] + " "
+        elif num < 100:
+            return self.under100[num // 10] + " " + self.fun1(num % 10)
+        else:
+            return self.under20[num // 100] + " Hundred " + self.fun1(num % 100)
