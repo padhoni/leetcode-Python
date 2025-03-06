@@ -1,0 +1,34 @@
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        len1 = len(s)
+        res = ""
+        max_len = 0
+
+        for piv in range(len1):
+            # Odd length palindrome
+            len_odd = 1
+            j = 1
+            while piv - j >= 0 and piv + j < len1:
+                if s[piv + j] == s[piv - j]:
+                    len_odd += 2
+                    j += 1
+                else:
+                    break
+            if len_odd > max_len:
+                max_len = len_odd
+                res = s[piv - (len_odd // 2) + (len_odd % 2 == 0): piv + (len_odd // 2) + 1]
+
+            # Even length palindrome
+            len_even = 0
+            j = 1
+            while piv - j + 1 >= 0 and piv + j < len1:
+                if s[piv + j] == s[piv - j + 1]:
+                    len_even += 2
+                    j += 1
+                else:
+                    break
+            if len_even > max_len:
+                max_len = len_even
+                res = s[piv - (len_even // 2) + 1: piv + (len_even // 2) + 1]
+
+        return res
